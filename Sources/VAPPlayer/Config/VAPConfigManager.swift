@@ -1,0 +1,151 @@
+// VAPConfigManager.swift
+// Copyright (C) 2020 Tencent. All rights reserved.
+// Licensed under the MIT License: http://opensource.org/licenses/MIT
+//
+// Parses vapc JSON and loads attachment textures.
+
+import Foundation
+import Metal
+import UIKit
+
+struct VAPAttachmentResources: @unchecked Sendable {
+    let config: VAPConfig
+    /// srcId -> MTLTexture for image/text attachments
+    let textures: [String: MTLTexture]
+    /// The mask texture derived from the video's alpha region (nil for HWD-only playback)
+    let maskTexture: MTLTexture?
+}
+
+final class VAPConfigManager {
+
+    private let device: MTLDevice
+    private let imageLoader: VAPImageLoader?
+
+    init(device: MTLDevice, imageLoader: VAPImageLoader?) {
+        self.device      = device
+        self.imageLoader = imageLoader
+    }
+
+    // MARK: - Load
+
+    func load(vapcJSON: Data,
+              sources: [String: VAPAttachmentSource]) async throws -> VAPAttachmentResources {
+        let config = try JSONDecoder().decode(VAPConfig.self, from: vapcJSON)
+        var textures: [String: MTLTexture] = [:]
+
+        for srcInfo in config.src ?? [] {
+            let srcType = srcInfo.attachmentSourceType
+            switch srcType {
+            case .image, .imageURL:
+                let context = VAPImageContext(
+                    srcId: srcInfo.srcId,
+                    fitType: srcInfo.attachmentFitType,
+                    targetSize: (srcInfo.w != nil && srcInfo.h != nil)
+                        ? CGSize(width: srcInfo.w!, height: srcInfo.h!)
+                        : nil,
+                    loadType: srcInfo.attachmentLoadType)
+                switch sources[srcInfo.srcId] {
+                case .image(let img):
+                    if let tex = makeTexture(from: img) {
+                        textures[srcInfo.srcId] = tex
+                    }
+                case .url(let urlString):
+                    if let url = URL(string: urlString), let loader = imageLoader {
+                        let image = try await loader(url, context)
+                        if let tex = makeTexture(from: image) {
+                            textures[srcInfo.srcId] = tex
+                        }
+                    }
+                case .text, nil:
+                    break
+                }
+            case .text, .textStr:
+                let text: String
+                switch sources[srcInfo.srcId] {
+                case .text(let t): text = t
+                case .url(let s):  text = s
+                default:           text = ""
+                }
+                let size = CGSize(width: srcInfo.w ?? 100, height: srcInfo.h ?? 40)
+                let color = parseHexColor(srcInfo.txtColor) ?? .white
+                let fontSize = srcInfo.txtFontSize ?? 14
+                let image = renderTextImage(text: text, size: size,
+                                            color: color, fontSize: fontSize)
+                if let tex = makeTexture(from: image) {
+                    textures[srcInfo.srcId] = tex
+                }
+            case nil:
+                break
+            }
+        }
+
+        return VAPAttachmentResources(config: config, textures: textures, maskTexture: nil)
+    }
+
+    // MARK: - Texture from UIImage
+
+    private func makeTexture(from image: UIImage) -> MTLTexture? {
+        guard let cgImage = image.cgImage else { return nil }
+        let width  = cgImage.width
+        let height = cgImage.height
+        let desc = MTLTextureDescriptor.texture2DDescriptor(
+            pixelFormat: .rgba8Unorm, width: width, height: height, mipmapped: false)
+        desc.usage = .shaderRead
+        guard let texture = device.makeTexture(descriptor: desc) else { return nil }
+        let region = MTLRegionMake2D(0, 0, width, height)
+        let bytesPerRow = 4 * width
+        var bytes = [UInt8](repeating: 0, count: bytesPerRow * height)
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        guard let ctx = CGContext(data: &bytes,
+                                  width: width, height: height,
+                                  bitsPerComponent: 8, bytesPerRow: bytesPerRow,
+                                  space: colorSpace,
+                                  bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else {
+            return nil
+        }
+        ctx.draw(cgImage, in: CGRect(x: 0, y: 0, width: width, height: height))
+        texture.replace(region: region, mipmapLevel: 0, withBytes: &bytes, bytesPerRow: bytesPerRow)
+        return texture
+    }
+
+    // MARK: - Text rendering
+
+    private func renderTextImage(text: String, size: CGSize,
+                                  color: UIColor, fontSize: CGFloat) -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size: size)
+        return renderer.image { ctx in
+            let attrs: [NSAttributedString.Key: Any] = [
+                .foregroundColor: color,
+                .font: UIFont.systemFont(ofSize: fontSize)
+            ]
+            let str = text as NSString
+            let textSize = str.size(withAttributes: attrs)
+            let origin = CGPoint(x: (size.width - textSize.width) / 2,
+                                 y: (size.height - textSize.height) / 2)
+            str.draw(at: origin, withAttributes: attrs)
+        }
+    }
+
+    // MARK: - Hex color
+
+    private func parseHexColor(_ hex: String?) -> UIColor? {
+        guard var hex = hex else { return nil }
+        hex = hex.trimmingCharacters(in: .whitespacesAndNewlines)
+        if hex.hasPrefix("#") { hex = String(hex.dropFirst()) }
+        guard hex.count == 6 || hex.count == 8 else { return nil }
+        var value: UInt64 = 0
+        Scanner(string: hex).scanHexInt64(&value)
+        if hex.count == 6 {
+            let r = CGFloat((value >> 16) & 0xFF) / 255
+            let g = CGFloat((value >>  8) & 0xFF) / 255
+            let b = CGFloat( value        & 0xFF) / 255
+            return UIColor(red: r, green: g, blue: b, alpha: 1)
+        } else {
+            let r = CGFloat((value >> 24) & 0xFF) / 255
+            let g = CGFloat((value >> 16) & 0xFF) / 255
+            let b = CGFloat((value >>  8) & 0xFF) / 255
+            let a = CGFloat( value        & 0xFF) / 255
+            return UIColor(red: r, green: g, blue: b, alpha: a)
+        }
+    }
+}
