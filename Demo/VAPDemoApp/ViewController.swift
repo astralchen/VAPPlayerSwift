@@ -3,7 +3,8 @@ import VAPPlayer
 
 final class ViewController: UIViewController {
 
-    private let remoteURL = "https://qiniu-xbyy.yinyou.live/channel/gift/QFB6BC-1774343076586.mp4"
+//    private let remoteURL = "https://qiniu-xbyy.yinyou.live/channel/gift/QFB6BC-1774343076586.mp4"
+    private let remoteURL = "https://ymres.yinyou.live/channel/gift/riwSrp-1701777916535.mp4"
 
     private lazy var vapView: VAPView = {
         let v = VAPView(frame: .zero)
