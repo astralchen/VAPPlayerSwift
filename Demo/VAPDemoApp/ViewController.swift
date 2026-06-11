@@ -136,7 +136,6 @@ final class ViewController: UIViewController {
         button.titleLabel?.font = .systemFont(ofSize: 13, weight: .semibold)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.titleLabel?.minimumScaleFactor = 0.72
-        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 6)
     }
 
     private func setupLayout() {
