@@ -12,7 +12,7 @@ swift build
 swift test
 
 # Run a single test by name
-swift test --filter VAPPlayerTests/<TestName>
+swift test --filter VAPViewTests/<TestName>
 
 # Release build
 swift build -c release
@@ -66,4 +66,4 @@ The `vapc` JSON config (parsed by `VAPMP4Parser`) describes per-frame attachment
 
 ### Shaders
 
-Metal shader source lives in `Sources/VAPPlayer/Shaders/` and is bundled via `.process("Shaders")`. Loaded at runtime with `device.makeDefaultLibrary(bundle: .module)`.
+Metal shader source lives in `Sources/VAPView/Shaders/` and is bundled via `.process("Shaders")`. Loaded at runtime with `device.makeDefaultLibrary(bundle: .module)`.

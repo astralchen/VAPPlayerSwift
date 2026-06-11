@@ -1,6 +1,6 @@
 // VAPConfigModelTests.swift
 import Testing
-@testable import VAPPlayer
+@testable import VAPView
 import Foundation
 
 @Suite("VAPConfigModel")

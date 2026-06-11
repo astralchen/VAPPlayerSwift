@@ -1,6 +1,6 @@
 // VAPFrameBufferTests.swift
 import Testing
-@testable import VAPPlayer
+@testable import VAPView
 import CoreVideo
 
 @Suite("VAPFrameBuffer")

@@ -5,20 +5,20 @@
 import PackageDescription
 
 let package = Package(
-    name: "VAPPlayer",
+    name: "VAPView",
     platforms: [
         .iOS(.v14)
     ],
     products: [
         .library(
-            name: "VAPPlayer",
-            targets: ["VAPPlayer"]
+            name: "VAPView",
+            targets: ["VAPView"]
         )
     ],
     targets: [
         .target(
-            name: "VAPPlayer",
-            path: "Sources/VAPPlayer",
+            name: "VAPView",
+            path: "Sources/VAPView",
             resources: [
                 .process("Shaders")
             ],
@@ -35,9 +35,9 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "VAPPlayerTests",
-            dependencies: ["VAPPlayer"],
-            path: "Tests/VAPPlayerTests"
+            name: "VAPViewTests",
+            dependencies: ["VAPView"],
+            path: "Tests/VAPViewTests"
         )
     ]
 )

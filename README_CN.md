@@ -1,4 +1,4 @@
-# VAPPlayerSwift
+# VAPView
 
 用于在 iOS 上播放 **VAP（Video Alpha Protocol）** 动画的 Swift 包。VAP 格式将 RGB 内容与 Alpha 通道蒙版编码在同一个 H.264/H.265 MP4 文件中，通过 Metal 在渲染时实时合成透明动画。
 
@@ -29,7 +29,7 @@ dependencies: [
 targets: [
     .target(
         name: "YourTarget",
-        dependencies: ["VAPPlayer"]
+        dependencies: ["VAPView"]
     )
 ]
 ```
@@ -41,7 +41,7 @@ targets: [
 ### 基础播放
 
 ```swift
-import VAPPlayer
+import VAPView
 import UIKit
 
 class ViewController: UIViewController {
@@ -166,7 +166,7 @@ case didFail(VAPError)                           // 发生错误
 
 ## 日志
 
-VAPPlayer 默认使用 Apple unified logging。Release 构建默认只输出错误日志；如需更多信息，由宿主 App 显式配置。Debug 构建也可以通过 `VAP_DEBUG_LOGS=1` 环境变量开启 debug 日志。
+VAPView 默认使用 Apple unified logging。Release 构建默认只输出错误日志；如需更多信息，由宿主 App 显式配置。Debug 构建也可以通过 `VAP_DEBUG_LOGS=1` 环境变量开启 debug 日志。
 
 ```swift
 VAPLogging.configure(

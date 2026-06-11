@@ -2,7 +2,7 @@
 import Testing
 import Foundation
 import CryptoKit
-@testable import VAPPlayer
+@testable import VAPView
 
 // MARK: - Mock URLProtocol
 

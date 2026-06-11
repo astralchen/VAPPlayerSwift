@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		332D765E2F7811B8003B9D8F /* VAPPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = 332D765D2F7811B8003B9D8F /* VAPPlayer */; };
-		339CA2D82F7767030064AAEB /* VAPPlayer in Frameworks */ = {isa = PBXBuildFile; productRef = 339CA2D72F7767030064AAEB /* VAPPlayer */; };
+		332D765E2F7811B8003B9D8F /* VAPView in Frameworks */ = {isa = PBXBuildFile; productRef = 332D765D2F7811B8003B9D8F /* VAPView */; };
+		339CA2D82F7767030064AAEB /* VAPView in Frameworks */ = {isa = PBXBuildFile; productRef = 339CA2D72F7767030064AAEB /* VAPView */; };
 		AA000001000000000000001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000011000000000000001 /* AppDelegate.swift */; };
 		AA000002000000000000001 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000012000000000000001 /* SceneDelegate.swift */; };
 		AA000003000000000000001 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000013000000000000001 /* ViewController.swift */; };
@@ -21,7 +21,7 @@
 		AA000012000000000000001 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		AA000013000000000000001 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		AA000014000000000000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AA000015000000000000001 /* VAPPlayer */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = VAPPlayer; path = ..; sourceTree = "<group>"; };
+		AA000015000000000000001 /* VAPView */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = VAPView; path = ..; sourceTree = "<group>"; };
 		AA000016000000000000001 /* gift_effects_mp4.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = gift_effects_mp4.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -30,8 +30,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				339CA2D82F7767030064AAEB /* VAPPlayer in Frameworks */,
-				332D765E2F7811B8003B9D8F /* VAPPlayer in Frameworks */,
+				339CA2D82F7767030064AAEB /* VAPView in Frameworks */,
+				332D765E2F7811B8003B9D8F /* VAPView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,7 +61,7 @@
 		AA000032000000000000001 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				AA000015000000000000001 /* VAPPlayer */,
+				AA000015000000000000001 /* VAPView */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -92,8 +92,8 @@
 			);
 			name = VAPDemo;
 			packageProductDependencies = (
-				339CA2D72F7767030064AAEB /* VAPPlayer */,
-				332D765D2F7811B8003B9D8F /* VAPPlayer */,
+				339CA2D72F7767030064AAEB /* VAPView */,
+				332D765D2F7811B8003B9D8F /* VAPView */,
 			);
 			productName = VAPDemo;
 			productReference = AA000010000000000000001 /* VAPDemo.app */;
@@ -286,13 +286,13 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		332D765D2F7811B8003B9D8F /* VAPPlayer */ = {
+		332D765D2F7811B8003B9D8F /* VAPView */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = VAPPlayer;
+			productName = VAPView;
 		};
-		339CA2D72F7767030064AAEB /* VAPPlayer */ = {
+		339CA2D72F7767030064AAEB /* VAPView */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = VAPPlayer;
+			productName = VAPView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

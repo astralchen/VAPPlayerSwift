@@ -1,5 +1,5 @@
 import UIKit
-import VAPPlayer
+import VAPView
 
 final class ViewController: UIViewController {
 

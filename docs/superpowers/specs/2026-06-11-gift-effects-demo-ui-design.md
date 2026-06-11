@@ -4,7 +4,7 @@
 
 The demo app currently plays one hard-coded remote VAP MP4 URL and exposes two alpha blend mode buttons plus stop and cache controls. The repository already includes `Demo/VAPDemoApp/gift_effects_mp4.json`, which contains 145 gift effect entries with a `name` and remote `url`.
 
-This design updates only the UIKit demo app. The `VAPPlayer` package API, renderer, parser, cache implementation, and tests remain unchanged unless a demo integration issue exposes a genuine library bug.
+This design updates only the UIKit demo app. The `VAPView` package API, renderer, parser, cache implementation, and tests remain unchanged unless a demo integration issue exposes a genuine library bug.
 
 ## Goal
 
@@ -105,7 +105,7 @@ In scope:
 
 Out of scope:
 
-- Changes to `Sources/VAPPlayer`.
+- Changes to `Sources/VAPView`.
 - Search, filtering, categories, thumbnails, or remote metadata.
 - Persisting the selected gift between app launches.
 - Adding new third-party dependencies.

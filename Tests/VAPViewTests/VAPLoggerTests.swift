@@ -2,7 +2,7 @@
 
 import Foundation
 import Testing
-@testable import VAPPlayer
+@testable import VAPView
 
 @Suite("VAPLogger", .serialized)
 struct VAPLoggerTests {

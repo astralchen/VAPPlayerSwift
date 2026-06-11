@@ -6,7 +6,7 @@
 
 **Architecture:** Keep the change demo-scoped. `ViewController` owns local UI state, decodes a small `GiftEffect` model from the app bundle, renders a `UICollectionView` grid, and sends selected URLs into `VAPView.play`. The Xcode project must bundle `gift_effects_mp4.json` so runtime bundle loading works.
 
-**Tech Stack:** UIKit, Auto Layout, `UICollectionView`, Swift `Decodable`, `VAPPlayer`, SwiftPM XCTest for fixture/project validation, Xcode project resources.
+**Tech Stack:** UIKit, Auto Layout, `UICollectionView`, Swift `Decodable`, `VAPView`, SwiftPM XCTest for fixture/project validation, Xcode project resources.
 
 ---
 
@@ -14,12 +14,12 @@
 
 - Modify `Demo/VAPDemoApp/ViewController.swift`: replace the single hard-coded URL demo with the combined player, status, gift grid, and controls.
 - Modify `Demo/VAPDemo.xcodeproj/project.pbxproj`: add `gift_effects_mp4.json` to the app group and resources build phase.
-- Create `Tests/VAPPlayerTests/GiftEffectsFixtureTests.swift`: document the JSON fixture and project resource expectations for environments that can run the iOS package tests.
+- Create `Tests/VAPViewTests/GiftEffectsFixtureTests.swift`: document the JSON fixture and project resource expectations for environments that can run the iOS package tests.
 
 ## Task 1: Add Fixture And Project Resource Tests
 
 **Files:**
-- Create: `Tests/VAPPlayerTests/GiftEffectsFixtureTests.swift`
+- Create: `Tests/VAPViewTests/GiftEffectsFixtureTests.swift`
 
 - [ ] **Step 1: Write the failing resource test**
 
@@ -175,7 +175,7 @@ Expected: build exits 0. The command-line iOS 15 deployment override is only for
 
 - [ ] **Step 3: Review final diff**
 
-Run: `git diff -- Demo/VAPDemoApp/ViewController.swift Demo/VAPDemo.xcodeproj/project.pbxproj Tests/VAPPlayerTests/GiftEffectsFixtureTests.swift`
+Run: `git diff -- Demo/VAPDemoApp/ViewController.swift Demo/VAPDemo.xcodeproj/project.pbxproj Tests/VAPViewTests/GiftEffectsFixtureTests.swift`
 
 Expected: diff is limited to the demo UI, JSON resource registration, and fixture tests.
 
@@ -195,7 +195,7 @@ Expected: only planned files are modified or added.
 Run:
 
 ```bash
-git add Demo/VAPDemoApp/ViewController.swift Demo/VAPDemo.xcodeproj/project.pbxproj Tests/VAPPlayerTests/GiftEffectsFixtureTests.swift docs/superpowers/plans/2026-06-11-gift-effects-demo-ui.md
+git add Demo/VAPDemoApp/ViewController.swift Demo/VAPDemo.xcodeproj/project.pbxproj Tests/VAPViewTests/GiftEffectsFixtureTests.swift docs/superpowers/plans/2026-06-11-gift-effects-demo-ui.md
 git commit -m "Build gift effects demo UI"
 ```
 

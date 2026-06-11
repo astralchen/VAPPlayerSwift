@@ -1,4 +1,4 @@
-# VAPPlayerSwift
+# VAPView
 
 A Swift package for playing **VAP (Video Alpha Protocol)** animations on iOS. VAP encodes transparent video by embedding both the RGB content and alpha channel mask within a single H.264/H.265 MP4 file, composited at render time via Metal.
 
@@ -29,7 +29,7 @@ dependencies: [
 targets: [
     .target(
         name: "YourTarget",
-        dependencies: ["VAPPlayer"]
+        dependencies: ["VAPView"]
     )
 ]
 ```
@@ -41,7 +41,7 @@ targets: [
 ### Basic playback
 
 ```swift
-import VAPPlayer
+import VAPView
 import UIKit
 
 class ViewController: UIViewController {
@@ -166,7 +166,7 @@ case didFail(VAPError)
 
 ## Logging
 
-VAPPlayer uses Apple's unified logging by default. Release builds log only errors unless the host app opts into a different level. Debug builds can also enable debug logs with the `VAP_DEBUG_LOGS=1` environment variable.
+VAPView uses Apple's unified logging by default. Release builds log only errors unless the host app opts into a different level. Debug builds can also enable debug logs with the `VAP_DEBUG_LOGS=1` environment variable.
 
 ```swift
 VAPLogging.configure(

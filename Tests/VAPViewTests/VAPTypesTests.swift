@@ -2,7 +2,7 @@
 import Testing
 import Foundation
 import UIKit
-@testable import VAPPlayer
+@testable import VAPView
 
 @Suite("VAPTypes")
 struct VAPTypesTests {

@@ -3,7 +3,7 @@ import Testing
 import Foundation
 import UIKit
 import simd
-@testable import VAPPlayer
+@testable import VAPView
 
 @Suite("VAPRenderer")
 struct VAPRendererTests {

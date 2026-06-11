@@ -1,7 +1,7 @@
 // VAPMP4ParserTests.swift
 import Testing
 import Foundation
-@testable import VAPPlayer
+@testable import VAPView
 
 @Suite("VAPMP4Parser")
 struct VAPMP4ParserTests {
